@@ -3,10 +3,10 @@ package Menu;
 //Menu_de_opciones_Mi_tienda_de_barrio
 import java.util.Scanner;
 
-public class Main {
+public class Menu {
     public static void main(String[] args) {
 
-        Main Menu = new Main();
+        Menu Menu = new Menu();
 
         Menu.ejecutarMenu();
     }
