@@ -3,8 +3,8 @@ package Menu;
 //Menu_de_opciones_Mi_tienda_de_barrio
 import java.util.Scanner;
 
-public class Menu {
-    public static void main(String[] args) {
+//public class Menu {
+  /*  public static void main(String[] args) {
 
         Menu Menu = new Menu();
 
@@ -123,5 +123,5 @@ public class Menu {
         }while (opciones != 7);
     }
 
-}
+}*/
 

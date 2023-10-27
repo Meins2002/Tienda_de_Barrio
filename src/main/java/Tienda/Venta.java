@@ -45,6 +45,7 @@ public class Venta {
         this.valorTotal = valorTotal;
     }
 
+    //Metodo
     @Override
     public String toString() {
         return "Venta{" +

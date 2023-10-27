@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class Compra {
 
+
+    //Atributos
     final String idCompra;
     String nombreProveedor;
     Date fechaCompra;
@@ -14,6 +16,7 @@ public class Compra {
     private Double valorUniCompra;
     private Double valorTotslCompra;
 
+    //Constructor
     public Compra(String idCompra, String nombreProveedor, Date fechaCompra, Double valorUnitario, Double valorTotal, Integer nitProveedor, Double valorUniCompra, Double valorTotslCompra) {
         this.idCompra = idCompra;
         this.nombreProveedor = nombreProveedor;
@@ -25,6 +28,7 @@ public class Compra {
         this.valorTotslCompra = valorTotslCompra;
     }
 
+    //Get y set
     public String getIdCompra() {
         return idCompra;
     }
@@ -85,6 +89,7 @@ public class Compra {
         this.valorTotslCompra = valorTotslCompra;
     }
 
+    //Metodo
     @Override
     public String toString() {
         return "Compra{" +
