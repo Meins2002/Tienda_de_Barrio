@@ -48,12 +48,11 @@ public class Venta {
     //Metodo
     @Override
     public String toString() {
-        return "Venta{" +
-                "idVenta='" + idVenta + '\'' +
-                ", valorUnitario=" + valorUnitario +
-                ", ivaVenta=" + ivaVenta +
-                ", valorTotal=" + valorTotal +
-                '}';
+        return "Venta: " +
+                "Id Venta: " + idVenta + '\'' + '\n' +
+                "Valor Unitario: " + valorUnitario + '\n' +
+                "IVA Venta: " + ivaVenta + '\n' +
+                "Valor Total: " + valorTotal + '\n';
     }
 }
 

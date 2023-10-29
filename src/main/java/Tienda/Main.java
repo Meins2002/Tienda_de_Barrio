@@ -268,6 +268,9 @@ public class Main {
 
     }
     public static void agregarVenta(Administracion administracion){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("");
+
 
     }
     public static void modificarVenta(Administracion administracion){

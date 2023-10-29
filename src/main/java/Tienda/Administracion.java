@@ -74,12 +74,12 @@ public class Administracion {
         }
 
 
-        public void agregarCompra(Compra compra)
-        {
-            if (!compraList.contains(compra)) {
-                compraList.add(compra);
-            }
+    public void agregarCompra(Compra compra)
+    {
+        if (!compraList.contains(compra)) {
+            compraList.add(compra);
         }
+    }
     public Optional<Compra> buscarCompra (String idCompra){
         return compraList.stream()
                 .filter(compra -> compra.getIdCompra()!= null && compra.getIdCompra().equals(idCompra))
@@ -143,5 +143,13 @@ public class Administracion {
                     return Optional.of(compraEncontrada);
                 })
                 .orElse(Optional.empty());
-    }
-    }
+   }
+
+   public Optional<Producto> agregarVenta(Venta venta){
+        if (!ventaList.contains(venta)){
+            ventaList.add(venta);
+        }
+       return null;
+   }
+
+}
