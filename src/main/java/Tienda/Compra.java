@@ -1,36 +1,42 @@
 package Tienda;
 
+
+import java.util.List;
 import java.util.Date;
+import java.util.Optional;
 
 public class Compra {
 
 
     //Atributos
-    final String idCompra;
-    String nombreProveedor;
-    Date fechaCompra;
+    private String idCompra;
+    private int nitProveedor;
+    private String nombreProveedor;
+    private Date fechaCompra;
     private Double valorUnitario;
     private Double valorTotal;
-
-    private Integer nitProveedor;
-    private Double valorUniCompra;
-    private Double valorTotslCompra;
-
-    //Constructor
-    public Compra(String idCompra, String nombreProveedor, Date fechaCompra, Double valorUnitario, Double valorTotal, Integer nitProveedor, Double valorUniCompra, Double valorTotslCompra) {
+    private Optional <Producto> productosCompra;
+    private Double Cantidad;
+    public Compra(String idCompra, String nombreProveedor, Date fechaCompra, Double valorUnitario, Double valorTotal,
+                  Integer nitProveedor, Optional<Producto> productosCompra, Double Cantidad ) {
         this.idCompra = idCompra;
         this.nombreProveedor = nombreProveedor;
         this.fechaCompra = fechaCompra;
         this.valorUnitario = valorUnitario;
         this.valorTotal = valorTotal;
         this.nitProveedor = nitProveedor;
-        this.valorUniCompra = valorUniCompra;
-        this.valorTotslCompra = valorTotslCompra;
+        this.productosCompra = productosCompra;
+        this.Cantidad = Cantidad;
+
     }
 
     //Get y set
     public String getIdCompra() {
         return idCompra;
+    }
+
+    public void setIdCompra(String idCompra) {
+        this.idCompra = idCompra;
     }
 
     public String getNombreProveedor() {
@@ -73,34 +79,37 @@ public class Compra {
         this.nitProveedor = nitProveedor;
     }
 
-    public Double getValorUniCompra() {
-        return valorUniCompra;
+    public Optional<Producto> getProductosCompra() {
+        return productosCompra;
     }
 
-    public void setValorUniCompra(Double valorUniCompra) {
-        this.valorUniCompra = valorUniCompra;
+    public void setProductosCompra(Optional<Producto> productosCompra) {
+        this.productosCompra = productosCompra;
     }
 
-    public Double getValorTotslCompra() {
-        return valorTotslCompra;
+    public double getCantidad() {
+        return Cantidad;
     }
 
-    public void setValorTotslCompra(Double valorTotslCompra) {
-        this.valorTotslCompra = valorTotslCompra;
+    public void setCantidad(double cantidad) {
+        Cantidad = cantidad;
     }
 
     //Metodo
     @Override
     public String toString() {
-        return "Compra{" +
-                "idCompra='" + idCompra + '\'' +
-                ", nombreProveedor='" + nombreProveedor + '\'' +
-                ", fechaCompra=" + fechaCompra +
-                ", valorUnitario=" + valorUnitario +
-                ", valorTotal=" + valorTotal +
-                ", nitProveedor=" + nitProveedor +
-                ", valorUniCompra=" + valorUniCompra +
-                ", valorTotslCompra=" + valorTotslCompra +
-                '}';
+        String productoInfo = productosCompra.isPresent() ?
+                "Id producto =" + this.productosCompra.get().getCodigoProducto() +
+                        "Nombre producto =" + this.productosCompra.get().getNombreProducto() :
+                "Producto no asociado";
+
+        return "Compra : " + '\n' +
+                "idCompra='" + idCompra + '\'' + '\n' +
+                "Nombre Proveedor: " + nombreProveedor + '\'' +'\n' +
+                "Nit Proveedor:  " + nitProveedor + '\n' +
+                "Fecha Compra: " + fechaCompra + '\n' + productoInfo + '\n' +
+                "Valor Unitario: " + valorUnitario + '\n' +
+                "Valor Total:" + valorTotal ;
     }
+
 }

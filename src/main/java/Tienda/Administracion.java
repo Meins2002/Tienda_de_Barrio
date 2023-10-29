@@ -3,6 +3,7 @@ package Tienda;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 public class Administracion {
 
@@ -73,11 +74,82 @@ public class Administracion {
         }
 
 
-        public void agregarCompra(Compra compra)
-        {
-            if (!compraList.contains(compra)) {
-                compraList.add(compra);
-            }
+    public void agregarCompra(Compra compra)
+    {
+        if (!compraList.contains(compra)) {
+            compraList.add(compra);
         }
-
     }
+    public Optional<Compra> buscarCompra (String idCompra){
+        return compraList.stream()
+                .filter(compra -> compra.getIdCompra()!= null && compra.getIdCompra().equals(idCompra))
+                .findAny();
+    }
+
+
+    public Optional<Compra> modificarCompra(String codigoCompra,int  opcion, String nuevoValor) {
+
+        Scanner scanner = new Scanner(System.in);
+        return compraList.stream()
+                .filter(compra -> compra.getIdCompra().equals(codigoCompra))
+                .findFirst()
+                .map(compraEncontrada -> {
+
+                    switch (opcion) {
+                        case 1:
+                            System.out.println("INGRESA EL NOMBRE DEL PROVEEDOR");
+                            compraEncontrada.setNombreProveedor(nuevoValor);
+                            break;
+                        case 2:
+                            System.out.println("INGRESE EL NIT DEL PROVEEDOR");
+                            compraEncontrada.setNitProveedor(Integer.parseInt(nuevoValor));
+                            break;
+                        case 3:
+                            System.out.println("Eliminar el ID del producto actual.");
+                            // Actualiza la cantidad del producto original
+                            Producto productoOriginal = compraEncontrada.getProductosCompra().orElse(null);
+                            if (productoOriginal != null) {
+                                productoOriginal.setCantidadProducto(productoOriginal.getCantidadProducto() - compraEncontrada.getCantidad());
+                            }
+                            compraEncontrada.setProductosCompra(null); // Establecer como null
+                            System.out.println(" ");
+                            System.out.println("Ingresa el código del producto: ");
+                            String nuevoCodigoProducto = scanner.nextLine();
+                            Optional<Producto> productoNuevoOptional = buscarProducto(nuevoCodigoProducto);
+                            if (productoNuevoOptional.isPresent()) {
+                                Producto productoNuevo = productoNuevoOptional.get();
+                                compraEncontrada.setProductosCompra(Optional.of(productoNuevo));
+                                System.out.println(productoNuevo);
+                                System.out.println("POR FAVOR INGRESA LA CANTIDAD");
+                                Double nuevaCantidad = scanner.nextDouble();
+                                scanner.nextLine();
+                                compraEncontrada.setCantidad(nuevaCantidad);
+                                productoNuevo.setCantidadProducto(productoNuevo.getCantidadProducto() + nuevaCantidad);
+                                System.out.println("POR FAVOR INGRESA EL PRECIO UNITARIO");
+                                Double nuevoPrecio = scanner.nextDouble();
+                                scanner.nextLine();
+                                compraEncontrada.setValorUnitario(nuevoPrecio);
+                                double valorTotal = nuevoPrecio * nuevaCantidad;
+                                compraEncontrada.setValorTotal(valorTotal);
+                            } else {
+                                System.out.println("Producto con el ID: " + nuevoCodigoProducto + " no encontrado");
+                            }
+                            break;
+
+                        default:
+                            System.out.println("Opción no válida.");
+                            break;
+                    }
+                    return Optional.of(compraEncontrada);
+                })
+                .orElse(Optional.empty());
+   }
+
+   public Optional<Producto> agregarVenta(Venta venta){
+        if (!ventaList.contains(venta)){
+            ventaList.add(venta);
+        }
+       return null;
+   }
+
+}
