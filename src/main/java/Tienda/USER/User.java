@@ -1,4 +1,4 @@
-package Tienda;
+package Tienda.USER;
 
 public class User {
 
