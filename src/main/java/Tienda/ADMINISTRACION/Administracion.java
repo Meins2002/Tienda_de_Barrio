@@ -1,4 +1,8 @@
-package Tienda;
+package Tienda.ADMINISTRACION;
+
+import Tienda.COMPRA.Compra;
+import Tienda.PRODUCTO.Producto;
+import Tienda.VENTA.Venta;
 
 import java.util.ArrayList;
 import java.util.List;

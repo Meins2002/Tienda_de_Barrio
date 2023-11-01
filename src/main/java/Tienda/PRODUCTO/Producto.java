@@ -1,4 +1,4 @@
-package Tienda;
+package Tienda.PRODUCTO;
 
 import java.util.ArrayList;
 import java.util.List;
