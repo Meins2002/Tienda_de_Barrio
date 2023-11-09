@@ -105,17 +105,17 @@ public class Producto {
 
     @Override
     public String toString () {
-        return "Producto:" + "\n" +
-                "Codigo Producto: " + codigoProducto + '\'' + "\n"+
-                "Nombre Producto: " + nombreProducto + '\'' + "\n"+
-                "Marca Producto: " + marcaProducto + '\'' + "\n"+
-                "Tipo Empaque: " + tipoEmpaque + '\'' + "\n"+
-                "Medida Producto: " + medidaProducto + " " + tipoMedidaProducto + '\'' +"\n"+
-                "Etiqueta Producto: " + etiquetaProducto + '\'' + "\n"+
-                "Categoria Producto: " + categoriaProducto + '\'' + "\n"+
-                "Cantidad Producto: " + cantidadProducto + "\n"+
-                "Producto List; " + productoList +
-                '}'+ "\n" + "\n";
+        return  "******************************************" + "\n" +
+                "* PRODUCTO AGREGADO CON EXITO            *" + "\n" +
+                "******************************************" + "\n" +
+                "  Codigo Producto:    " + codigoProducto + '\'' + "\n"+
+                "  Nombre Producto:    " + nombreProducto + '\'' + "\n"+
+                "  Marca Producto:     " + marcaProducto + '\'' + "\n"+
+                "  Tipo Empaque:       " + tipoEmpaque + '\'' + "\n"+
+                "  Medida Producto:    " + medidaProducto + "  " + tipoMedidaProducto + '\'' +"\n"+
+                "  Etiqueta Producto:  " + etiquetaProducto + '\'' + "\n"+
+                "  Categoria Producto: " + categoriaProducto + '\'' + "\n" +
+                "******************************************" + "\n";
     }
 
 }

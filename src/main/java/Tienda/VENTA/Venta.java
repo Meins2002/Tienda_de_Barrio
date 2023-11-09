@@ -14,20 +14,24 @@ public class Venta {
     private Double valorTotal;
     private String fechaVenta;
     private String horaVenta;
+    private Double cantidadVenta;
     private Optional<Producto> productosVenta;
-
+    private Double totalVenta;
 
 
     //constructor
     public Venta(String idVenta, Double valorUnitario, Double ivaVenta, Double valorTotal,
-                 String fechaVenta, String horaVenta,Optional<Producto> productosVenta) {
+                 String fechaVenta, String horaVenta, Double cantidadVenta,Optional<Producto> productosVenta,
+                 Double totalVenta) {
         this.idVenta = idVenta;
         this.valorUnitario = valorUnitario;
         this.ivaVenta = ivaVenta;
         this.valorTotal = valorTotal;
         this.fechaVenta = fechaVenta;
         this.horaVenta = horaVenta;
+        this.cantidadVenta = cantidadVenta;
         this.productosVenta = productosVenta;
+        this.totalVenta = totalVenta;
     }
 
     //get y sed
@@ -76,6 +80,14 @@ public class Venta {
         this.horaVenta = horaVenta;
     }
 
+    public Double getCantidadVenta() {
+        return cantidadVenta;
+    }
+
+    public void setCantidadVenta(Double cantidadVenta) {
+        this.cantidadVenta = cantidadVenta;
+    }
+
     public Optional<Producto> getProductosVenta() {
         return productosVenta;
     }
@@ -84,16 +96,25 @@ public class Venta {
         this.productosVenta = productosVenta;
     }
 
+    public Double getTotalVenta() {
+        return totalVenta;
+    }
+
+    public void setTotalVenta(Double totalVenta) {
+        this.totalVenta = totalVenta;
+    }
+
     //Metodo
     @Override
     public String toString() {
         return "Venta: " +
-                "Fecha: " + fechaVenta + " Hora: "+ horaVenta + '\n' +
+                "Fecha: " + fechaVenta + " | " +" Hora: "+ horaVenta + '\n' +
                 "Id Venta: " + idVenta + '\'' + '\n' +
-                "Cantidad de producto: " +
+                "Cantidad de producto: " + cantidadVenta +'\n' +
                 "Valor Unitario: " + valorUnitario + '\n' +
                 "IVA Venta: " + ivaVenta + '\n' +
-                "Valor Total: " + valorTotal + '\n';
+                "Valor Total: " + valorTotal + '\n' +
+                "Valor Total mas Iva: " + totalVenta ;
     }
 }
 

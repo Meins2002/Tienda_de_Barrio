@@ -12,16 +12,16 @@ import java.util.Scanner;
 public class AgregarCompra {
     public void agregar_Compra(Administracion administracion) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("INGRESA  LA FECHA DE LA COMPRA (yyyy-MM-dd):");
+        System.out.print("INGRESA  LA FECHA DE LA COMPRA (yyyy-MM-dd):");
         String fechaCompraStr = scanner.nextLine();
-        System.out.println("INGRESA EL CODIGO DE LA COMPRA : ");
+        System.out.print("INGRESA EL CODIGO DE LA COMPRA : ");
         String idCompra = scanner.nextLine();
-        System.out.println("INGRESA EL NIT DEL PROVEEDOR : ");
+        System.out.print("INGRESA EL NIT DEL PROVEEDOR : ");
         int nitProveedor = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("INGRESA EL NOMBRE DEL PROVEEDOR: ");
+        System.out.print("INGRESA EL NOMBRE DEL PROVEEDOR: ");
         String nombreProveedor = scanner.nextLine();
-        System.out.println("INGRESA EL CODIGO DEL PRODUCTO A COMPRAR: ");
+        System.out.print("INGRESA EL CODIGO DEL PRODUCTO A COMPRAR: ");
         String codigoProducto = scanner.nextLine();
 
 
@@ -41,12 +41,14 @@ public class AgregarCompra {
             Producto productosCompra = productoOptional.get();
             System.out.println(productosCompra.getNombreProducto());
 
-            System.out.println("INGRESA EL VALOR UNITARIO DEl PRODUCTO: ");
+            System.out.print("INGRESA EL VALOR UNITARIO DEl PRODUCTO: ");
             Double valorUnitario = scanner.nextDouble();
             scanner.nextLine();
-            System.out.println("INGRESA LA CANTIDAD A COMPRAR : ");
-            double cantidad = scanner.nextInt();
+            System.out.print("INGRESA LA CANTIDAD A COMPRAR : ");
+            double cantidad = scanner.nextDouble();
             scanner.nextLine();
+
+
             productosCompra.setCantidadProducto(productosCompra.getCantidadProducto() + cantidad);
             double valorTotal = valorUnitario * cantidad;
 

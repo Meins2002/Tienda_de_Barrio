@@ -9,7 +9,6 @@ import java.util.Optional;
 
 public class Compra {
 
-
     //Atributos
     private String idCompra;
     private int nitProveedor;
@@ -102,7 +101,7 @@ public class Compra {
     public String toString() {
         String productoInfo = productosCompra.isPresent() ?
                 "Id producto =" + this.productosCompra.get().getCodigoProducto() +
-                        "Nombre producto =" + this.productosCompra.get().getNombreProducto() :
+                "Nombre producto =" + this.productosCompra.get().getNombreProducto() :
                 "Producto no asociado";
 
         return "Compra : " + '\n' +
