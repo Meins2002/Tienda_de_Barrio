@@ -1,12 +1,13 @@
-package Tienda;
+package Tienda.COMPRA;
 
+
+import Tienda.PRODUCTO.Producto;
 
 import java.util.List;
 import java.util.Date;
 import java.util.Optional;
 
 public class Compra {
-
 
     //Atributos
     private String idCompra;
@@ -100,16 +101,16 @@ public class Compra {
     public String toString() {
         String productoInfo = productosCompra.isPresent() ?
                 "Id producto =" + this.productosCompra.get().getCodigoProducto() +
-                        "Nombre producto =" + this.productosCompra.get().getNombreProducto() :
+                "Nombre producto =" + this.productosCompra.get().getNombreProducto() :
                 "Producto no asociado";
 
         return "Compra : " + '\n' +
-                "idCompra='" + idCompra + '\'' + '\n' +
+                "Id Compra: " + idCompra + '\'' + '\n' +
                 "Nombre Proveedor: " + nombreProveedor + '\'' +'\n' +
                 "Nit Proveedor:  " + nitProveedor + '\n' +
                 "Fecha Compra: " + fechaCompra + '\n' + productoInfo + '\n' +
                 "Valor Unitario: " + valorUnitario + '\n' +
-                "Valor Total:" + valorTotal ;
+                "Valor Total: " + valorTotal ;
     }
 
 }

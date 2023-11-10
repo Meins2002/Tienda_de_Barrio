@@ -1,9 +1,15 @@
-package Tienda;
+package Tienda.ADMINISTRACION;
+
+import Tienda.COMPRA.Compra;
+import Tienda.PRODUCTO.ProductService;
+import Tienda.PRODUCTO.Producto;
+import Tienda.VENTA.Venta;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.concurrent.atomic.DoubleAdder;
 
 public class Administracion {
 
@@ -145,11 +151,84 @@ public class Administracion {
                 .orElse(Optional.empty());
    }
 
-   public Optional<Producto> agregarVenta(Venta venta){
+   public void agregarVenta(Venta venta){
         if (!ventaList.contains(venta)){
             ventaList.add(venta);
         }
-       return null;
+   }
+   public Optional<Venta> buscarVenta (String idVenta){
+        return ventaList.stream().filter(venta -> venta.getIdVenta()!= null && venta.getIdVenta().
+                equals(idVenta)).findAny();
    }
 
+   public  Optional<Venta> modificarVenta (String codigoVenta,int  opcion, String nuevoValor) {
+        Scanner scanner = new Scanner(System.in);
+       return ventaList.stream()
+               .filter(venta -> venta.getIdVenta().equals(codigoVenta))
+               .findFirst()
+               .map(ventaEncontrada -> {
+
+                   switch (opcion) {
+
+                       case 1:
+                           System.out.println("CANTIDAD DE PRODUCTO");
+                           //ventaEncontrada.setCantidadVenta(Double.parseDouble(nuevoValor));
+                           if (!nuevoValor.isEmpty()) {
+                               ventaEncontrada.setCantidadVenta(Double.parseDouble(nuevoValor));
+                           } else {
+                               System.out.println("El valor proporcionado es una cadena vacía. Por favor, ingresa un valor numérico válido.");
+                           }
+                           break;
+                       case 2:
+                           System.out.println("VALOR DEL PRODUCTO");
+                           ventaEncontrada.setValorUnitario(Double.parseDouble(nuevoValor));
+                           break;
+                       case 3:
+                           System.out.println("Eliminar el ID del producto actual.");
+                           // Actualiza la cantidad del producto original
+                           Producto productoOriginal = ventaEncontrada.getProductosVenta().orElse(null);
+                           if (productoOriginal != null) {
+                               productoOriginal.setCantidadProducto(productoOriginal.getCantidadProducto() - ventaEncontrada.getCantidadVenta());
+                           }
+                           ventaEncontrada.setProductosVenta(null); // Establecer como null
+                           System.out.println(" ");
+                           System.out.println("Ingresa el código del producto: ");
+                           String nuevoCodigoProducto = scanner.nextLine();
+                           Optional<Producto> productoNuevoOptional = buscarProducto(nuevoCodigoProducto);
+                           if (productoNuevoOptional.isPresent()) {
+                               Producto productoNuevo = productoNuevoOptional.get();
+                               ventaEncontrada.setProductosVenta(Optional.of(productoNuevo));
+                               System.out.println(productoNuevo);
+                               System.out.println("POR FAVOR INGRESA LA CANTIDAD");
+                               Double nuevaCantidad = scanner.nextDouble();
+                               scanner.nextLine();
+                               ventaEncontrada.setValorUnitario(nuevaCantidad);
+                               productoNuevo.setCantidadProducto(productoNuevo.getCantidadProducto() + nuevaCantidad);
+                               System.out.println("POR FAVOR INGRESA EL PRECIO UNITARIO");
+                               Double nuevoPrecio = scanner.nextDouble();
+                               scanner.nextLine();
+                               ventaEncontrada.setValorUnitario(nuevoPrecio);
+                               double valorTotal = nuevoPrecio * nuevaCantidad;
+                               ventaEncontrada.setValorTotal(valorTotal);
+                           } else {
+                               System.out.println("Producto con el ID: " + nuevoCodigoProducto + " no encontrado");
+                           }
+                           break;
+
+                       default:
+                           System.out.println("Opción no válida.");
+                           break;
+                   }
+                   return Optional.of(ventaEncontrada);
+               })
+               .orElse(Optional.empty());
+
+   }
+
+   //____________________________________________________________________
+
+
+    public void productSrvice (String ruta) {
+        ProductService productService;
+    }
 }

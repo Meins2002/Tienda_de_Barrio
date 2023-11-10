@@ -1,10 +1,16 @@
 package Tienda;
 
-import Tienda.Administracion;
-import Tienda.Compra;
-import Tienda.Producto;
-import Tienda.Venta;
-
+import Tienda.ADMINISTRACION.Administracion;
+import Tienda.COMPRA.AgregarCompra;
+import Tienda.COMPRA.BuscarCompra;
+import Tienda.COMPRA.ModificarCompra;
+import Tienda.PRODUCTO.AgregarProducto;
+import Tienda.PRODUCTO.ConsultarProducto;
+import Tienda.PRODUCTO.ModificarProducto;
+import Tienda.VENTA.AgregarVenta;
+import Tienda.VENTA.BuscarVenta;
+import Tienda.VENTA.ModificarVenta;
+import Tienda.PRODUCTO.ProductService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -19,35 +25,40 @@ public class Main {
 
         Administracion administracion = new Administracion();
         int opciones = ejecutarMenu();
-        while (opciones != 7){
+        while (opciones != 11) {
             switch (opciones) {
-                case 1 :
+                case 1:
                     agregarProducto(administracion);
                     break;
-                case 2 :
+                case 2:
                     modificarProducto(administracion);
                     break;
-                case 3 :
+                case 3:
                     consultarProducto(administracion);
                     break;
-                case 4 :
+                case 4:
                     agregarCompra(administracion);
                     break;
-                case 5 :
+                case 5:
                     modificarCompra(administracion);
                     break;
-                case 6 :
+                case 6:
                     buscarCompra(administracion);
                     break;
-                case 7 :
+                case 7:
                     agregarVenta(administracion);
-                case 8 :
-                    modificarVenta(administracion);
                     break;
-                case 9 :
+                case 8:
                     buscarVenta(administracion);
                     break;
-                case 10 :
+                case 9:
+                    modificarVenta(administracion);
+                    break;
+                case 10:
+                    productSrvice(administracion);
+                    break;
+
+                case 11:
                     System.out.println("Saliendo de menú ");
                     break;
             }
@@ -56,229 +67,80 @@ public class Main {
 
     }
 
-    //funcion
-    public static void agregarProducto(Administracion administracion)
-    {
-        //REGISTRAR NUEVO PRODUCTO
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("INGRESA EL CODIGO DEL PRODUCTO : ");
-        String codigoProducto = scanner.nextLine();
 
-        System.out.println("INGRESA EL NOMBRE DEL PRODUCTO: ");
-        String nombreProducto = scanner.nextLine();
+    //Instancia
+    //                |   Metodo      |Parametros
+    public static void agregarProducto(Administracion administracion) {
 
-        System.out.println("INGRESA  LA MARCA DEL PRODUCTO: ");
-        String marcaProducto =  scanner.nextLine();
-
-        System.out.println("INGRESA EL TIPO DE EMPAQUE DEL PRODUCTO: ");
-        String tipoEmpaque = scanner.nextLine();
-
-        System.out.println("INGRESA UNIDAD DE MEDIDA DEL PRODUCTO: ");
-        Double medidaProducto = scanner.nextDouble();
-        scanner.nextLine();
-
-        System.out.println("INGRESA EL TIPO DE MEDIDA DEL PRODUCTO: ");
-        String tipoMedidaProducto = scanner.nextLine();
-
-        System.out.println("INGRESA LA ETIQUETA DEL PRODUCTO: ");
-        String etiquetaProducto=  scanner.nextLine();
-
-        System.out.println("INGRESA  LA CATEGORIA DEL PRODUCTO : ");
-        String  categoriaProducto =  scanner.nextLine();
-
-        System.out.println("INGRESA LA CANTIDAD DEL PRODUCTO: ");
-        Double cantidadProducto = scanner.nextDouble();
-        scanner.nextLine();
-
-        //nuevo objeto
-        Producto producto = new Producto(codigoProducto, nombreProducto, marcaProducto, tipoEmpaque,medidaProducto,
-                                            tipoMedidaProducto,etiquetaProducto,categoriaProducto,cantidadProducto) {
-        };
-        administracion.agregarProducto(producto);
-        System.out.println(producto.toString());
-
-    }
-
-    public static void modificarProducto(Administracion administracion)
-    {
-        System.out.println("INGRESA EL CODIGO DEL PRODUCTO A BUSCAR : ");
-        Scanner scanner = new Scanner(System.in);
-        String codigoProducto = scanner.next();
-        scanner.nextLine();
-
-        Optional<Producto> productoEncontrado = administracion.buscarProducto(codigoProducto);
-
-        if (productoEncontrado.isPresent()) {
-            System.out.println("Seleccione el campo del producto que desee modificar: ");
-            System.out.println("1. Nombre del Producto");
-            System.out.println("2. Marca del Producto");
-            System.out.println("3. Tipo de Empaque");
-            System.out.println("4. Medida");
-            System.out.println("5. Tipo de medida");
-            System.out.println("6. Etiqueta Producto");
-            System.out.println("7. Categoria Producto");
-            System.out.println("8. Cantidad");
-
-
-            String opcion = scanner.nextLine();
-            //Actualizacion
-            System.out.println("Modificar Producto: ");
-
-            String nuevoValor = scanner.nextLine();
-
-            Optional<Producto> productoModificado = administracion.modificarProducto(
-                    codigoProducto,
-                    opcion,
-                    nuevoValor
-            );
-
-            if (productoModificado.isPresent()) {
-                System.out.println("Producto modificado exitosamente.");
-                System.out.println(" ");
-            } else {
-                System.out.println("No se pudo modificar el producto.");
-                System.out.println(" ");
-            }
-        } else {
-            System.out.println("Producto no encontrado.");
-            System.out.println(" ");
-        }
-
-    }
-
-    public static void  consultarProducto(Administracion administracion)
-    {
-        System.out.println("INGRESA EL CODIGO DEL PRODUCTO A BUSCAR : ");
-        Scanner scanner = new Scanner(System.in);
-        String codigoProducto = scanner.next();
-        scanner.nextLine();
-
-        Optional<Producto> productoOptional = administracion.buscarProducto(codigoProducto );
-        if (productoOptional.isPresent()) {
-            System.out.println(productoOptional.get());
-        } else {
-            System.out.println("Producto con eL ID: " + codigoProducto  + " no encontrado");
-        }
-    }
-
-    public static void agregarCompra(Administracion administracion){
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("INGRESA  LA FECHA DE LA COMPRA (yyyy-MM-dd):");
-        String fechaCompraStr =  scanner.nextLine();
-        System.out.println("INGRESA EL CODIGO DE LA COMPRA : ");
-        String idCompra = scanner.nextLine();
-        System.out.println("INGRESA EL NIT DEL PROVEEDOR : ");
-        int nitProveedor = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("INGRESA EL NOMBRE DEL PROVEEDOR: ");
-        String nombreProveedor = scanner.nextLine();
-        System.out.println("INGRESA EL CODIGO DEL PRODUCTO A COMPRAR: ");
-        String codigoProducto = scanner.nextLine();
-
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date fechaCompra = null;
-
-        try {
-            fechaCompra = dateFormat.parse(fechaCompraStr);
-        } catch (ParseException e) {
-            System.out.println("Fecha de compra no válida. Utiliza el formato yyyy-MM-dd.");
-            return;
-        }
-
-        Optional<Producto> productoOptional = administracion.buscarProducto(codigoProducto );
-        if (productoOptional.isPresent() ) {
-            Producto productosCompra = productoOptional.get();
-            System.out.println(productosCompra.getNombreProducto());
-
-            System.out.println("INGRESA EL VALOR UNITARIO DEl PRODUCTO: ");
-            Double valorUnitario = scanner.nextDouble();
-            scanner.nextLine();
-            System.out.println("INGRESA LA CANTIDAD A COMPRAR : ");
-            double cantidad= scanner.nextInt();
-            scanner.nextLine();
-            productosCompra.setCantidadProducto(productosCompra.getCantidadProducto() + cantidad);
-            double valorTotal = valorUnitario * cantidad;
-
-            Compra compra = new Compra(idCompra,nombreProveedor,fechaCompra,valorUnitario,valorTotal,
-                    nitProveedor, Optional.of(productosCompra), cantidad);
-            administracion.agregarCompra(compra);
-            System.out.println(compra.toString());
-
-        } else {
-            System.out.println("Producto con eL ID: " + codigoProducto  + " no encontrado");
-        }
-
-
-    }
-    public static void modificarCompra(Administracion administracion){
-        System.out.println("INGRESA EL CODIGO DE LA COMPRA A MODIFICAR : ");
-        Scanner scanner = new Scanner(System.in);
-        String codigoCompra = scanner.nextLine();
-
-
-        Optional<Compra> compraEncontrada = administracion.buscarCompra(codigoCompra);
-        if (compraEncontrada.isPresent()) {
-            Compra compra = compraEncontrada.get();
-            System.out.println("Compra encontrada:");
-            System.out.println(compra);
-
-
-            if (compraEncontrada.isPresent()) {
-                System.out.println("Seleccione el campo de la compra  que deseas modificar: ");
-
-                System.out.println("1. Nombre del Proveedor");
-                System.out.println("2. Nit del Proveedor");
-                System.out.println("3. Producto, cantidad y valor unitario");
-
-                int opcion = scanner.nextInt();
-
-                String nuevoValor = scanner.nextLine();
-
-                Optional<Compra> compramodificada = administracion.modificarCompra(codigoCompra, opcion, nuevoValor);
-                if (compramodificada.isPresent()) {
-                    System.out.println("Producto modificado exitosamente.");
-                    System.out.println(compraEncontrada.get());
-                } else {
-                    System.out.println("No se pudo modificar el producto.");
-
-                }
-            } else {
-                System.out.println("Producto no encontrado.");
-                System.out.println(" ");
-            }
-        }
+        //Llamar clase | instancia
+        AgregarProducto agregarProducto = new AgregarProducto();
+        //Instancia    | llamar metodo de la clase
+        agregarProducto.agregar_Producto(administracion);
     }
 
 
-    public static void buscarCompra(Administracion administracion){
+    public static void modificarProducto(Administracion administracion) {
 
-        System.out.println("INGRESA EL CODIGO DE LA COMPRA A BUSCAR : ");
-        Scanner scanner = new Scanner(System.in);
-        String idCompra = scanner.next();
-        scanner.nextLine();
-
-        Optional<Compra> compraOptional = administracion.buscarCompra(idCompra);
-        if (compraOptional.isPresent()) {
-            System.out.println(compraOptional.get());
-        } else {
-            System.out.println("Producto con eL ID: " + idCompra  + " no encontrado");
-        }
+        //  Llamar Clase | Instancia
+        ModificarProducto modificarProducto = new ModificarProducto();
+        //  Instancia    | Llamar metodo de la clase
+        modificarProducto.modificar_Producto(administracion);
 
     }
-    public static void agregarVenta(Administracion administracion){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("");
 
+    public static void consultarProducto(Administracion administracion) {
+        //  Llamar Clase | Instancia
+        ConsultarProducto consultarProducto = new ConsultarProducto();
+        //  Instancia    | Llamar metodo de la clase
+        consultarProducto.consultar_Producto(administracion);
+    }
+
+    public static void agregarCompra(Administracion administracion) {
+        //Llamar Clase | Instancia
+        AgregarCompra agregarCompra = new AgregarCompra();
+        //Instancia  | Llamar metodo de la clase
+        agregarCompra.agregar_Compra(administracion);
+    }
+
+    public static void modificarCompra(Administracion administracion) {
+        //Llamar Clase | Instancia
+        ModificarCompra modificarCompra = new ModificarCompra();
+        //Instancia    | Llamar metodo de la clase
+        modificarCompra.modificar_Compra(administracion);
+    }
+
+    public static void buscarCompra(Administracion administracion) {
+        //Llamar Clase | Instancia
+        BuscarCompra buscarCompra = new BuscarCompra();
+        //Instancia | Llamar metodo de la clase
+        buscarCompra.buscar_Compra(administracion);
+    }
+
+    public static void agregarVenta(Administracion administracion) {
+        //Llamar Clase | Instancia
+        AgregarVenta agregarVenta = new AgregarVenta();
+        //Instancia | Llamar metodo de la clase
+        agregarVenta.agregar_Venta(administracion);
 
     }
-    public static void modificarVenta(Administracion administracion){
 
+    public static void buscarVenta(Administracion administracion) {
+        BuscarVenta buscarVenta = new BuscarVenta();
+        buscarVenta.buscar_Venta(administracion);
     }
-    public static void buscarVenta(Administracion administracion){
 
+    public static void modificarVenta(Administracion administracion) {
+        ModificarVenta modificarVenta = new ModificarVenta();
+        modificarVenta.modificar_Venta(administracion);
     }
+
+    public static void productSrvice(Administracion administracion) {
+
+    ProductService printProduct = new ProductService();
+    printProduct.productSrvice("C://Users//James//Desktop//Proyecto//Tienda_de_Barrio//src//Resources//Mi tienda de Barrio - Ada School.csv");
+    System.out.println(printProduct);}
+
+
     public static int ejecutarMenu()
     {
         System.out.println("|o||o|o||o|o|o|o|o|o|o|o|o|o|o|o|o|o|o|o|");
@@ -298,7 +160,8 @@ public class Main {
         System.out.println("|o||o|o||o|o|o|o|o|o|o|o|o|o|o|o|o|o|o|o|");
 
         System.out.println("  ");
-        System.out.println("Por favor digita una opcion del siguiente menú");
+        System.out.println("Por favor digita una opcion del siguiente" +
+                        "\n" + "menú");
         System.out.println("******************************************");
         System.out.println("*   Administrador Mi Tienda de Barrio    *");
         System.out.println("******************************************");
@@ -311,9 +174,10 @@ public class Main {
         System.out.println("*   7. Agregar venta                     *");
         System.out.println("*   8. Buscar venta                      *");
         System.out.println("*   9. Modificar venta                   *");
-        System.out.println("*  10.Salir menú                         *");
+        System.out.println("*  10. CVS                               *");
+        System.out.println("*  11. Salir menú                         *");
         System.out.println("******************************************");
-        System.out.print("   Ingresa tu opción:    (1 - 10)  ");
+        System.out.println("   Ingresa tu opción:    (1 - 11)  ");
 
         Scanner scanner = new Scanner(System.in);
         int opciones =10;
