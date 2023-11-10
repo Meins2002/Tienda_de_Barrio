@@ -1,6 +1,7 @@
 package Tienda.ADMINISTRACION;
 
 import Tienda.COMPRA.Compra;
+import Tienda.PRODUCTO.ProductService;
 import Tienda.PRODUCTO.Producto;
 import Tienda.VENTA.Venta;
 
@@ -223,4 +224,11 @@ public class Administracion {
                .orElse(Optional.empty());
 
    }
+
+   //____________________________________________________________________
+
+
+    public void productSrvice (String ruta) {
+        ProductService productService;
+    }
 }

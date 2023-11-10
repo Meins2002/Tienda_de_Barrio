@@ -10,7 +10,7 @@ import Tienda.PRODUCTO.ModificarProducto;
 import Tienda.VENTA.AgregarVenta;
 import Tienda.VENTA.BuscarVenta;
 import Tienda.VENTA.ModificarVenta;
-
+import Tienda.PRODUCTO.ProductService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -25,36 +25,40 @@ public class Main {
 
         Administracion administracion = new Administracion();
         int opciones = ejecutarMenu();
-        while (opciones != 10){
+        while (opciones != 11) {
             switch (opciones) {
-                case 1 :
+                case 1:
                     agregarProducto(administracion);
                     break;
-                case 2 :
+                case 2:
                     modificarProducto(administracion);
                     break;
-                case 3 :
+                case 3:
                     consultarProducto(administracion);
                     break;
-                case 4 :
+                case 4:
                     agregarCompra(administracion);
                     break;
-                case 5 :
+                case 5:
                     modificarCompra(administracion);
                     break;
-                case 6 :
+                case 6:
                     buscarCompra(administracion);
                     break;
-                case 7 :
+                case 7:
                     agregarVenta(administracion);
                     break;
-                case 8 :
+                case 8:
                     buscarVenta(administracion);
                     break;
-                case 9 :
+                case 9:
                     modificarVenta(administracion);
                     break;
-                case 10 :
+                case 10:
+                    productSrvice(administracion);
+                    break;
+
+                case 11:
                     System.out.println("Saliendo de menú ");
                     break;
             }
@@ -63,9 +67,10 @@ public class Main {
 
     }
 
+
     //Instancia
     //                |   Metodo      |Parametros
-    public static void agregarProducto(Administracion administracion){
+    public static void agregarProducto(Administracion administracion) {
 
         //Llamar clase | instancia
         AgregarProducto agregarProducto = new AgregarProducto();
@@ -83,48 +88,58 @@ public class Main {
 
     }
 
-    public static void  consultarProducto(Administracion administracion) {
+    public static void consultarProducto(Administracion administracion) {
         //  Llamar Clase | Instancia
         ConsultarProducto consultarProducto = new ConsultarProducto();
         //  Instancia    | Llamar metodo de la clase
         consultarProducto.consultar_Producto(administracion);
     }
 
-    public static void agregarCompra(Administracion administracion){
+    public static void agregarCompra(Administracion administracion) {
         //Llamar Clase | Instancia
-        AgregarCompra   agregarCompra = new AgregarCompra();
+        AgregarCompra agregarCompra = new AgregarCompra();
         //Instancia  | Llamar metodo de la clase
         agregarCompra.agregar_Compra(administracion);
     }
 
-    public static void modificarCompra(Administracion administracion){
+    public static void modificarCompra(Administracion administracion) {
         //Llamar Clase | Instancia
         ModificarCompra modificarCompra = new ModificarCompra();
         //Instancia    | Llamar metodo de la clase
         modificarCompra.modificar_Compra(administracion);
     }
 
-    public static void buscarCompra(Administracion administracion){
+    public static void buscarCompra(Administracion administracion) {
         //Llamar Clase | Instancia
-        BuscarCompra     buscarCompra = new BuscarCompra();
+        BuscarCompra buscarCompra = new BuscarCompra();
         //Instancia | Llamar metodo de la clase
         buscarCompra.buscar_Compra(administracion);
     }
-    public static void agregarVenta (Administracion administracion){
+
+    public static void agregarVenta(Administracion administracion) {
         //Llamar Clase | Instancia
-        AgregarVenta     agregarVenta = new AgregarVenta();
+        AgregarVenta agregarVenta = new AgregarVenta();
         //Instancia | Llamar metodo de la clase
         agregarVenta.agregar_Venta(administracion);
 
     }
-    public static void buscarVenta(Administracion administracion){
+
+    public static void buscarVenta(Administracion administracion) {
         BuscarVenta buscarVenta = new BuscarVenta();
         buscarVenta.buscar_Venta(administracion);
     }
-    public static void modificarVenta(Administracion administracion){
+
+    public static void modificarVenta(Administracion administracion) {
         ModificarVenta modificarVenta = new ModificarVenta();
         modificarVenta.modificar_Venta(administracion);
     }
+
+    public static void productSrvice(Administracion administracion) {
+
+    ProductService printProduct = new ProductService();
+    printProduct.productSrvice("C://Users//James//Desktop//Proyecto//Tienda_de_Barrio//src//Resources//Mi tienda de Barrio - Ada School.csv");
+    System.out.println(printProduct);}
+
 
     public static int ejecutarMenu()
     {
@@ -159,9 +174,10 @@ public class Main {
         System.out.println("*   7. Agregar venta                     *");
         System.out.println("*   8. Buscar venta                      *");
         System.out.println("*   9. Modificar venta                   *");
-        System.out.println("*  10.Salir menú                         *");
+        System.out.println("*  10. CVS                               *");
+        System.out.println("*  11. Salir menú                         *");
         System.out.println("******************************************");
-        System.out.println("   Ingresa tu opción:    (1 - 10)  ");
+        System.out.println("   Ingresa tu opción:    (1 - 11)  ");
 
         Scanner scanner = new Scanner(System.in);
         int opciones =10;

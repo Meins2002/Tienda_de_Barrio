@@ -6,7 +6,7 @@ import java.util.List;
 public class Producto {
 
     //Atributos
-    final String codigoProducto ;
+    private String codigoProducto ;
     private String nombreProducto;
     private String marcaProducto;
     private String tipoEmpaque;
@@ -15,6 +15,8 @@ public class Producto {
     private String etiquetaProducto;
     private String categoriaProducto;
     private Double cantidadProducto;
+    private int precioProducto;
+    private String fotoULR;
     private List<Producto> productoList = new ArrayList<>();
 
     // Constructor
@@ -37,6 +39,10 @@ public class Producto {
     // get y sed
     public String getCodigoProducto() {
         return codigoProducto;
+    }
+
+    public void setCodigoProducto(String codigoProducto) {
+        this.codigoProducto = codigoProducto;
     }
 
     public String getNombreProducto() {
@@ -102,6 +108,22 @@ public class Producto {
     public void setCantidadProducto(Double cantidadProducto) {
         this.cantidadProducto = cantidadProducto;
     }
+
+   /* public int getPrecioProducto() {
+        return precioProducto;
+    }
+
+    public void setPrecioProducto(int precioProducto) {
+        this.precioProducto = precioProducto;
+    }
+
+    public String getFotoULR() {
+        return fotoULR;
+    }
+
+    public void setFotoULR(String fotoULR) {
+        this.fotoULR = fotoULR;
+    }*/
 
     @Override
     public String toString () {
